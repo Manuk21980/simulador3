@@ -94,282 +94,339 @@
         .toggle-button.rotated {
             transform: rotate(180deg);
         }
+
+        /* Styles for section separation */
+        .client-section {
+            background-color: #ffffff; /* White background for client section */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+            padding: 1.5rem 2rem; /* p-6 sm:p-8 md:p-10 */
+            margin-bottom: 2rem; /* mb-8 */
+        }
+
+        .lender-section {
+            background-color: #f0f4f8; /* Slightly darker background for lender section */
+            border-top: 4px solid #2563eb; /* Strong blue top border */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+            padding: 1.5rem 2rem; /* p-6 sm:p-8 md:p-10 */
+            margin-top: 2rem; /* mt-8 */
+        }
+        /* Specific styling for panel sliders and inputs */
+        .panel-slider-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+            /* Removed align-items: center; to allow text-align: left on panel-value-display */
+        }
+        .panel-slider-group .input-group {
+            width: 100%; /* Make input group take full width */
+        }
+        .panel-slider-group input[type="range"] {
+            flex-grow: 1; /* Allow range input to take available space */
+            margin-right: 10px; /* Space between slider and number input */
+        }
+        .panel-slider-group input[type="number"] {
+            width: 80px; /* Fixed width for number input */
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        .panel-value-display {
+            text-align: left; /* Aligned to left */
+            margin-top: 0.5rem;
+            font-weight: bold;
+            color: #4b5563; /* text-gray-700 */
+            display: block; /* Ensure it takes full width for text-align to work */
+            padding-left: 5px; /* Small padding to align with slider start */
+        }
+        .slider-box {
+            border: 1px solid #d1d5db; /* Light gray border */
+            border-radius: 0.375rem; /* rounded-md */
+            padding: 0.75rem; /* p-3 */
+            margin-bottom: 1rem; /* mb-4 */
+            background-color: #ffffff; /* White background */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* subtle shadow */
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
     <!-- Removed Header -->
 
     <main class="flex-grow p-4 sm:p-6 md:p-8">
-        <div class="container mx-auto bg-white rounded-lg shadow-xl p-6 sm:p-8 md:p-10">
+        <div class="container mx-auto">
+            <!-- Client Section -->
+            <div class="client-section">
+                <!-- Simulador Section -->
+                <section id="simulador" class="mb-8 p-6 bg-blue-50 rounded-lg shadow-inner">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-700 mb-6 sm:mb-8">Simulador de Créditos con Garantía Inmobiliaria</h2>
+                    <p class="text-lg text-gray-700 mb-8 text-center">Ajusta los parámetros y descubre la cuota estimada para tu crédito.</p>
 
-            <!-- Simulador Section -->
-            <section id="simulador" class="mb-8 p-6 bg-blue-50 rounded-lg shadow-inner">
-                <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-700 mb-6 sm:mb-8">Simulador de Créditos con Garantía Inmobiliaria</h2>
-                <p class="text-lg text-gray-700 mb-8 text-center">Ajusta los parámetros y descubre la cuota estimada para tu crédito.</p>
+                    <!-- Input Section -->
+                    <section class="mb-8 p-6 bg-blue-100 rounded-lg shadow-inner">
+                        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Parámetros del Crédito</h2>
 
-                <!-- Input Section -->
-                <section class="mb-8 p-6 bg-blue-100 rounded-lg shadow-inner">
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Parámetros del Crédito</h2>
-
-                    <div class="mb-6">
-                        <label for="loanAmount" class="block text-gray-700 text-lg font-medium mb-2">Monto del Préstamo (USD)</label>
-                        <input type="range" id="loanAmount" min="20000" max="100000" value="100000" step="1000"
-                               class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
-                        <div class="flex justify-between text-sm text-gray-600 mt-2">
-                            <span>USD 20.000</span>
-                            <span id="loanAmountValue" class="font-semibold text-gray-700">USD 100.000</span>
-                            <span>USD 100.000</span>
+                        <div class="mb-6">
+                            <label for="loanAmount" class="block text-gray-700 text-lg font-medium mb-2">Monto del Préstamo (USD)</label>
+                            <input type="range" id="loanAmount" min="20000" max="100000" value="100000" step="1000"
+                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex justify-between text-sm text-gray-600 mt-2">
+                                <span>USD 20.000</span>
+                                <span id="loanAmountValue" class="font-semibold text-gray-700">USD 100.000</span>
+                                <span>USD 100.000</span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="mb-6">
-                        <label for="loanTerm" class="block text-gray-700 text-lg font-medium mb-2">Plazo (Años)</label>
-                        <input type="range" id="loanTerm" min="2" max="10" value="10" step="1"
-                               class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
-                        <div class="flex justify-between text-sm text-gray-600 mt-2">
-                            <span>2 Años</span>
-                            <span id="loanTermValue" class="font-semibold text-gray-700">10 Años</span>
-                            <span>10 Años</span>
+                        <div class="mb-6">
+                            <label for="loanTerm" class="block text-gray-700 text-lg font-medium mb-2">Plazo (Años)</label>
+                            <input type="range" id="loanTerm" min="2" max="10" value="10" step="1"
+                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex justify-between text-sm text-gray-600 mt-2">
+                                <span>2 Años</span>
+                                <span id="loanTermValue" class="font-semibold text-gray-700">10 Años</span>
+                                <span>10 Años</span>
+                            </div>
                         </div>
-                    </div>
+                    </section>
+
+                    <!-- Unified Output Section -->
+                    <section class="mb-8 p-6 bg-blue-100 rounded-lg shadow-inner">
+                        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Resultados de tu Simulación</h2>
+                        <div class="grid grid-cols-1 gap-4">
+                            <!-- Monto Total del Préstamo & Cuota Mensual Estimada -->
+                            <div class="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                                <div class="mb-2 sm:mb-0">
+                                    <p class="text-gray-700 text-sm">Monto Total del Préstamo</p>
+                                    <p id="totalLoanAmount" class="text-2xl font-bold text-gray-600 mt-1"></p>
+                                </div>
+                                <div class="sm:text-right">
+                                    <p class="text-gray-700 text-sm">Cuota Mensual Estimada</p>
+                                    <p id="monthlyPayment" class="text-2xl font-bold text-gray-600 mt-1"></p>
+                                </div>
+                            </div>
+                            <!-- Ingresos Mensuales Requeridos & Valor Mínimo de la Propiedad -->
+                            <div class="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                                <div class="mb-2 sm:mb-0">
+                                    <p class="text-gray-700 text-sm">Ingresos Mensuales Requeridos</p>
+                                    <p id="minMonthlyIncome" class="text-2xl font-bold text-gray-600 mt-1"></p>
+                                </div>
+                                <div class="sm:text-right">
+                                    <p class="text-gray-700 text-sm">Valor Mínimo de la Propiedad</p>
+                                    <p id="minPropertyValue" class="text-2xl font-bold text-gray-600 mt-1"></p>
+                                </div>
+                            </div>
+                            <!-- TNA & CFTEA -->
+                            <div class="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                                <div class="mb-2 sm:mb-0">
+                                    <p class="text-gray-700 text-sm">TNA (Tasa Nominal Anual)</p>
+                                    <p id="tnaDisplay" class="text-2xl font-bold text-gray-600 mt-1"></p>
+                                </div>
+                                <div class="sm:text-right">
+                                    <p class="text-gray-700 text-sm">CFTEA</p>
+                                    <p id="cfteaWithoutOrigination" class="text-2xl font-bold text-gray-600 mt-1"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <p id="originationCostsDisplay" class="text-gray-700 text-sm mt-4 text-center">
+                            *Gastos estimados de otorgamiento: <span class="font-bold" id="originationCosts"></span> (se pagan por única vez al momento del desembolso, incluyen impuestos y honorarios de escribanía, CFTEA: <span id="cftWithOriginationDisplay"></span>)
+                        </p>
+                        <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+                            <button id="toggleAmortizationTable" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
+                                Ver Cuadro de Amortización Completo
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Amortization Table Section - Collapsible -->
+                    <section id="amortizationTableSection" class="mb-8 p-6 bg-blue-100 rounded-lg shadow-inner collapsible-content collapsed">
+                        <h2 class="text-2xl font-semibold text-gray-900 mb-4" id="amortizationTableTitle" style="display: none;">Detalle del Cuadro de Amortización</h2>
+                        <div class="table-container rounded-lg shadow-md">
+                            <table class="min-w-full divide-y divide-blue-200 table-fixed">
+                                <thead class="bg-blue-200">
+                                    <tr>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider rounded-tl-lg w-1/9">Fecha de Pago</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Nro. Cuota</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Saldo Deudor</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Pago Capital</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Pago Intereses</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Seguro Vida</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Seguro Incendio y Admin.</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">IVA</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Pago Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="amortizationTableBody" class="bg-white divide-y divide-blue-200">
+                                    <!-- Rows will be dynamically inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-6 text-center">
+                            <button id="downloadAmortizationCsvBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
+                                Descargar Cuadro de Amortización (CSV)
+                            </button>
+                        </div>
+                    </section>
                 </section>
+            </div>
 
-                <!-- Unified Output Section -->
-                <section class="mb-8 p-6 bg-blue-100 rounded-lg shadow-inner">
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Resultados de tu Simulación</h2>
-                    <div class="grid grid-cols-1 gap-4">
-                        <!-- Monto Total del Préstamo & Cuota Mensual Estimada -->
-                        <div class="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                            <div class="mb-2 sm:mb-0">
-                                <p class="text-gray-700 text-sm">Monto Total del Préstamo</p>
-                                <p id="totalLoanAmount" class="text-2xl font-bold text-gray-600 mt-1"></p>
-                            </div>
-                            <div class="sm:text-right">
-                                <p class="text-gray-700 text-sm">Cuota Mensual Estimada</p>
-                                <p id="monthlyPayment" class="text-2xl font-bold text-gray-600 mt-1"></p>
-                            </div>
-                        </div>
-                        <!-- Ingresos Mensuales Requeridos & Valor Mínimo de la Propiedad -->
-                        <div class="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                            <div class="mb-2 sm:mb-0">
-                                <p class="text-gray-700 text-sm">Ingresos Mensuales Requeridos</p>
-                                <p id="minMonthlyIncome" class="text-2xl font-bold text-gray-600 mt-1"></p>
-                            </div>
-                            <div class="sm:text-right">
-                                <p class="text-gray-700 text-sm">Valor Mínimo de la Propiedad</p>
-                                <p id="minPropertyValue" class="text-2xl font-bold text-gray-600 mt-1"></p>
-                            </div>
-                        </div>
-                        <!-- TNA & CFTEA -->
-                        <div class="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                            <div class="mb-2 sm:mb-0">
-                                <p class="text-gray-700 text-sm">TNA (Tasa Nominal Anual)</p>
-                                <p id="tnaDisplay" class="text-2xl font-bold text-gray-600 mt-1"></p>
-                            </div>
-                            <div class="sm:text-right">
-                                <p class="text-gray-700 text-sm">CFTEA</p>
-                                <p id="cfteaWithoutOrigination" class="text-2xl font-bold text-gray-600 mt-1"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <p id="originationCostsDisplay" class="text-gray-700 text-sm mt-4 text-center">
-                        *Gastos estimados de otorgamiento: <span class="font-bold" id="originationCosts"></span> (se pagan por única vez al momento del desembolso, incluyen impuestos y honorarios de escribanía, CFTEA: <span id="cftWithOriginationDisplay"></span>)
-                    </p>
-                    <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
-                        <button id="toggleAmortizationTable" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
-                            Ver Cuadro de Amortización Completo
-                        </button>
-                    </div>
-                </section>
-
-                <!-- Amortization Table Section - Collapsible -->
-                <section id="amortizationTableSection" class="mb-8 p-6 bg-blue-100 rounded-lg shadow-inner collapsible-content collapsed">
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-4" id="amortizationTableTitle" style="display: none;">Detalle del Cuadro de Amortización</h2>
-                    <div class="table-container rounded-lg shadow-md">
-                        <table class="min-w-full divide-y divide-blue-200 table-fixed">
-                            <thead class="bg-blue-200">
-                                <tr>
-                                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider rounded-tl-lg w-1/9">Fecha de Pago</th>
-                                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Nro. Cuota</th>
-                                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Saldo Deudor</th>
-                                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Pago Capital</th>
-                                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Pago Intereses</th>
-                                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Seguro Vida</th>
-                                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Seguro Incendio y Admin.</th>
-                                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">IVA</th>
-                                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Pago Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="amortizationTableBody" class="bg-white divide-y divide-blue-200">
-                                <!-- Rows will be dynamically inserted here -->
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="mt-6 text-center">
-                        <button id="downloadAmortizationCsvBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
-                            Descargar Cuadro de Amortización (CSV)
-                        </button>
-                    </div>
-                </section>
-            </section>
-
-            <!-- Panel de Control (Políticas Crediticias) - Collapsible - Moved to bottom -->
-            <section class="mt-8 p-6 bg-blue-50 rounded-lg shadow-inner">
-                <h2 class="text-2xl font-semibold text-gray-900 mb-4 flex justify-between items-center cursor-pointer" id="toggleDashboardBottom">
-                    Panel de Control (Políticas Crediticias)
-                    <button class="text-gray-700 hover:text-gray-900 focus:outline-none toggle-button">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            <!-- Lender Section -->
+            <div class="lender-section">
+                <!-- Panel de Control (Políticas Crediticias) - Collapsible -->
+                <section class="p-6 bg-blue-50 rounded-lg shadow-inner">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-4 flex justify-between items-center cursor-pointer" id="toggleDashboardBottom">
+                        Panel de Control (Políticas Crediticias)
+                        <button class="text-gray-700 hover:text-gray-900 focus:outline-none toggle-button">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
                 </h2>
                 <div id="dashboardContentBottom" class="collapsible-content"> <!-- Removed 'collapsed' class here -->
                     <p class="text-sm text-gray-700 mb-6">Ajusta los parámetros de la política crediticia y los costos para ver su impacto en la simulación.</p>
                     
-                    <!-- LTV -->
-                    <div class="mb-4">
-                        <label for="dashboardLTV" class="block text-gray-700 text-base font-medium mb-2">Loan-to-Value (LTV)</label>
-                        <div class="input-group">
-                            <input type="range" id="dashboardLTV" min="0" max="1.00" value="0.50" step="0.01"
-                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
-                            <input type="number" id="dashboardLTVInput" min="0" max="1.00" value="0.50" step="0.01" class="text-right">
-                            <span id="dashboardLTVValue" class="font-semibold text-gray-700"></span>
+                    <!-- Group: Parámetros del crédito -->
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Parámetros del crédito</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                        <div class="slider-box">
+                            <label for="dashboardLTV" class="block text-gray-700 text-base font-medium mb-2">Loan-to-Value (LTV)</label>
+                            <div class="input-group">
+                                <input type="range" id="dashboardLTV" min="0" max="1.00" value="0.50" step="0.01"
+                                       class="h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                                <input type="number" id="dashboardLTVInput" min="0" max="1.00" value="0.50" step="0.01" class="text-right">
+                            </div>
+                            <span id="dashboardLTVValueDisplay" class="panel-value-display"></span>
+                        </div>
+                        <div class="slider-box">
+                            <label for="dashboardDTI" class="block text-gray-700 text-base font-medium mb-2">Debt-to-Income (DTI)</label>
+                            <div class="input-group">
+                                <input type="range" id="dashboardDTI" min="0" max="1.00" value="0.30" step="0.01"
+                                       class="h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                                <input type="number" id="dashboardDTIInput" min="0" max="1.00" value="0.30" step="0.01" class="text-right">
+                            </div>
+                            <span id="dashboardDTIValueDisplay" class="panel-value-display"></span>
+                        </div>
+                        <div class="slider-box col-span-full"> <!-- Changed to col-span-full -->
+                            <label for="dashboardTNA" class="block text-gray-700 text-base font-medium mb-2">TNA (Tasa Nominal Anual)</label>
+                            <div class="input-group">
+                                <input type="range" id="dashboardTNA" min="0" max="0.30" value="0.135" step="0.001"
+                                       class="h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                                <input type="number" id="dashboardTNAInput" min="0" max="0.30" value="0.135" step="0.001" class="text-right">
+                            </div>
+                            <span id="dashboardTNAValueDisplay" class="panel-value-display"></span>
                         </div>
                     </div>
 
-                    <!-- DTI -->
-                    <div class="mb-4">
-                        <label for="dashboardDTI" class="block text-gray-700 text-base font-medium mb-2">Debt-to-Income (DTI)</label>
-                        <div class="input-group">
-                            <input type="range" id="dashboardDTI" min="0" max="1.00" value="0.30" step="0.01"
-                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
-                            <input type="number" id="dashboardDTIInput" min="0" max="1.00" value="0.30" step="0.01" class="text-right">
-                            <span id="dashboardDTIValue" class="font-semibold text-gray-700"></span>
+                    <!-- Group: Gastos Otorgamiento -->
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Gastos de Otorgamiento</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                        <div class="slider-box">
+                            <label for="dashboardEscrituraPercentage" class="block text-gray-700 text-base font-medium mb-2">Gastos de Escribanía (%)</label>
+                            <div class="input-group">
+                                <input type="range" id="dashboardEscrituraPercentage" min="0" max="0.10" value="0.03" step="0.001"
+                                       class="h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                                <input type="number" id="dashboardEscrituraPercentageInput" min="0" max="0.10" value="0.03" step="0.001" class="text-right">
+                            </div>
+                            <span id="dashboardEscrituraPercentageValueDisplay" class="panel-value-display"></span>
+                        </div>
+                        <div class="slider-box">
+                            <label for="dashboardEscrituraMinUSD" class="block text-gray-700 text-base font-medium mb-2">Mínimo Gastos de Escribanía (USD)</label>
+                            <div class="input-group">
+                                <input type="range" id="dashboardEscrituraMinUSD" min="0" max="5000" value="1000" step="100"
+                                       class="h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                                <input type="number" id="dashboardEscrituraMinUSDInput" min="0" max="5000" value="1000" step="100" class="text-right">
+                            </div>
+                            <span id="dashboardEscrituraMinUSDValueDisplay" class="panel-value-display"></span>
+                        </div>
+                        <div class="slider-box">
+                            <label for="dashboardOriginationFeePercentage" class="block text-gray-700 text-base font-medium mb-2">Fee de Originación (%)</label>
+                            <div class="input-group">
+                                <input type="range" id="dashboardOriginationFeePercentage" min="0" max="0.10" value="0.02" step="0.001"
+                                       class="h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                                <input type="number" id="dashboardOriginationFeePercentageInput" min="0" max="0.10" value="0.02" step="0.001" class="text-right">
+                            </div>
+                            <span id="dashboardOriginationFeePercentageValueDisplay" class="panel-value-display"></span>
+                        </div>
+                        <div class="slider-box">
+                            <label for="dashboardOriginationFeeMinUSD" class="block text-gray-700 text-base font-medium mb-2">Mínimo Fee de Originación (USD)</label>
+                            <div class="input-group">
+                                <input type="range" id="dashboardOriginationFeeMinUSD" min="0" max="5000" value="500" step="100"
+                                       class="h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                                <input type="number" id="dashboardOriginationFeeMinUSDInput" min="0" max="5000" value="500" step="100" class="text-right">
+                            </div>
+                            <span id="dashboardOriginationFeeMinUSDValueDisplay" class="panel-value-display"></span>
                         </div>
                     </div>
 
-                    <!-- TNA -->
-                    <div class="mb-4">
-                        <label for="dashboardTNA" class="block text-gray-700 text-base font-medium mb-2">TNA (Tasa Nominal Anual)</label>
-                        <div class="input-group">
-                            <input type="range" id="dashboardTNA" min="0" max="0.30" value="0.135" step="0.001"
-                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
-                            <input type="number" id="dashboardTNAInput" min="0" max="0.30" value="0.135" step="0.001" class="text-right">
-                            <span id="dashboardTNAValue" class="font-semibold text-gray-700"></span>
+                    <!-- Group: Seguros -->
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Seguros</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                        <div class="slider-box">
+                            <label for="dashboardInsuranceLife" class="block text-gray-700 text-base font-medium mb-2">Seguro de Vida (%)</label>
+                            <div class="input-group">
+                                <input type="range" id="dashboardInsuranceLife" min="0" max="0.01" value="0.001" step="0.0001"
+                                       class="h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                                <input type="number" id="dashboardInsuranceLifeInput" min="0" max="0.01" value="0.001" step="0.0001" class="text-right">
+                            </div>
+                            <span id="dashboardInsuranceLifeValueDisplay" class="panel-value-display"></span>
+                        </div>
+                        <div class="slider-box">
+                            <label for="dashboardMarkupLifePercentage" class="block text-gray-700 text-base font-medium mb-2">Mark-up Seguro de Vida (%)</label>
+                            <div class="input-group">
+                                <input type="range" id="dashboardMarkupLifePercentage" min="0" max="1.00" value="0.50" step="0.01"
+                                       class="h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                                <input type="number" id="dashboardMarkupLifePercentageInput" min="0" max="1.00" value="0.50" step="0.01" class="text-right">
+                            </div>
+                            <span id="dashboardMarkupLifePercentageValueDisplay" class="panel-value-display"></span>
+                        </div>
+                        <div class="slider-box">
+                            <label for="dashboardInsuranceFire" class="block text-gray-700 text-base font-medium mb-2">Seguro de Incendio (%)</label>
+                            <div class="input-group">
+                                <input type="range" id="dashboardInsuranceFire" min="0" max="0.01" value="0.0002" step="0.0001"
+                                       class="h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                                <input type="number" id="dashboardInsuranceFireInput" min="0" max="0.01" value="0.0002" step="0.0001" class="text-right">
+                            </div>
+                            <span id="dashboardInsuranceFireValueDisplay" class="panel-value-display"></span>
+                        </div>
+                        <div class="slider-box">
+                            <label for="dashboardMarkupFirePercentage" class="block text-gray-700 text-base font-medium mb-2">Mark-up Seguro de Incendio (%)</label>
+                            <div class="input-group">
+                                <input type="range" id="dashboardMarkupFirePercentage" min="0" max="1.00" value="0.50" step="0.01"
+                                       class="h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                                <input type="number" id="dashboardMarkupFirePercentageInput" min="0" max="1.00" value="0.50" step="0.01" class="text-right">
+                            </div>
+                            <span id="dashboardMarkupFirePercentageValueDisplay" class="panel-value-display"></span>
                         </div>
                     </div>
 
-                    <!-- Gastos de Escribanía (%) -->
-                    <div class="mb-4">
-                        <label for="dashboardEscrituraPercentage" class="block text-gray-700 text-base font-medium mb-2">Gastos de Escribanía (%)</label>
-                        <div class="input-group">
-                            <input type="range" id="dashboardEscrituraPercentage" min="0" max="0.10" value="0.03" step="0.001"
-                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
-                            <input type="number" id="dashboardEscrituraPercentageInput" min="0" max="0.10" value="0.03" step="0.001" class="text-right">
-                            <span id="dashboardEscrituraPercentageValue" class="font-semibold text-gray-700"></span>
-                        </div>
-                    </div>
-
-                    <!-- Mínimo Gastos de Escribanía (USD) -->
-                    <div class="mb-4">
-                        <label for="dashboardEscrituraMinUSD" class="block text-gray-700 text-base font-medium mb-2">Mínimo Gastos de Escribanía (USD)</label>
-                        <div class="input-group">
-                            <input type="range" id="dashboardEscrituraMinUSD" min="0" max="5000" value="1000" step="100"
-                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
-                            <input type="number" id="dashboardEscrituraMinUSDInput" min="0" max="5000" value="1000" step="100" class="text-right">
-                            <span id="dashboardEscrituraMinUSDValue" class="font-semibold text-gray-700"></span>
-                        </div>
-                    </div>
-
-                    <!-- Fee de Originación (%) -->
-                    <div class="mb-4">
-                        <label for="dashboardOriginationFeePercentage" class="block text-gray-700 text-base font-medium mb-2">Fee de Originación (%)</label>
-                        <div class="input-group">
-                            <input type="range" id="dashboardOriginationFeePercentage" min="0" max="0.10" value="0.02" step="0.001"
-                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
-                            <input type="number" id="dashboardOriginationFeePercentageInput" min="0" max="0.10" value="0.02" step="0.001" class="text-right">
-                            <span id="dashboardOriginationFeePercentageValue" class="font-semibold text-gray-700"></span>
-                        </div>
-                    </div>
-
-                    <!-- Mínimo Fee de Originación (USD) -->
-                    <div class="mb-4">
-                        <label for="dashboardOriginationFeeMinUSD" class="block text-gray-700 text-base font-medium mb-2">Mínimo Fee de Originación (USD)</label>
-                        <div class="input-group">
-                            <input type="range" id="dashboardOriginationFeeMinUSD" min="0" max="5000" value="500" step="100"
-                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
-                            <input type="number" id="dashboardOriginationFeeMinUSDInput" min="0" max="5000" value="500" step="100" class="text-right">
-                            <span id="dashboardOriginationFeeMinUSDValue" class="font-semibold text-gray-700"></span>
-                        </div>
-                    </div>
-
-                    <!-- Seguro Vida (%) -->
-                    <div class="mb-4">
-                        <label for="dashboardInsuranceLife" class="block text-gray-700 text-base font-medium mb-2">Seguro de Vida (%)</label>
-                        <div class="input-group">
-                            <input type="range" id="dashboardInsuranceLife" min="0" max="0.01" value="0.001" step="0.0001"
-                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
-                            <input type="number" id="dashboardInsuranceLifeInput" min="0" max="0.01" value="0.001" step="0.0001" class="text-right">
-                            <span id="dashboardInsuranceLifeValue" class="font-semibold text-gray-700"></span>
-                        </div>
-                    </div>
-
-                    <!-- Mark-up Seguro de Vida (%) -->
-                    <div class="mb-4">
-                        <label for="dashboardMarkupLifePercentage" class="block text-gray-700 text-base font-medium mb-2">Mark-up Seguro de Vida (%)</label>
-                        <div class="input-group">
-                            <input type="range" id="dashboardMarkupLifePercentage" min="0" max="1.00" value="0.50" step="0.01"
-                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
-                            <input type="number" id="dashboardMarkupLifePercentageInput" min="0" max="1.00" value="0.50" step="0.01" class="text-right">
-                            <span id="dashboardMarkupLifePercentageValue" class="font-semibold text-gray-700"></span>
-                        </div>
-                    </div>
-
-                    <!-- Seguro Incendio (%) -->
-                    <div class="mb-4">
-                        <label for="dashboardInsuranceFire" class="block text-gray-700 text-base font-medium mb-2">Seguro de Incendio (%)</label>
-                        <div class="input-group">
-                            <input type="range" id="dashboardInsuranceFire" min="0" max="0.01" value="0.0002" step="0.0001"
-                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
-                            <input type="number" id="dashboardInsuranceFireInput" min="0" max="0.01" value="0.0002" step="0.0001" class="text-right">
-                            <span id="dashboardInsuranceFireValue" class="font-semibold text-gray-700"></span>
-                        </div>
-                    </div>
-
-                    <!-- Mark-up Seguro de Incendio (%) -->
-                    <div class="mb-4">
-                        <label for="dashboardMarkupFirePercentage" class="block text-gray-700 text-base font-medium mb-2">Mark-up Seguro de Incendio (%)</label>
-                        <div class="input-group">
-                            <input type="range" id="dashboardMarkupFirePercentage" min="0" max="1.00" value="0.50" step="0.01"
-                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
-                            <input type="number" id="dashboardMarkupFirePercentageInput" min="0" max="1.00" value="0.50" step="0.01" class="text-right">
-                            <span id="dashboardMarkupFirePercentageValue" class="font-semibold text-gray-700"></span>
-                        </div>
-                    </div>
-
-                    <!-- Servicing Fee (USD) -->
-                    <div class="mb-4">
+                    <!-- Group: Servicing Fee -->
+                    <div class="slider-box col-span-full">
                         <label for="dashboardServicingFee" class="block text-gray-700 text-base font-medium mb-2">Servicing Fee (USD/mes)</label>
                         <div class="input-group">
                             <input type="range" id="dashboardServicingFee" min="0" max="30" value="20" step="1"
-                                   class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                                   class="h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
                             <input type="number" id="dashboardServicingFeeInput" min="0" max="30" value="20" step="1" class="text-right">
-                            <span id="dashboardServicingFeeValue" class="font-semibold text-gray-700"></span>
+                        </div>
+                        <span id="dashboardServicingFeeValueDisplay" class="panel-value-display"></span>
+                    </div>
+
+                    <!-- CFTEA and IRR Display -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-lg shadow-md text-center">
+                            <p class="text-gray-700 text-lg font-bold mb-2">CFTEA*</p>
+                            <span id="cftWithOriginationDisplayPanel" class="font-extrabold text-gray-700 text-3xl"></span>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-md text-center">
+                            <p class="block text-gray-700 text-lg font-bold mb-2">IRR</p>
+                            <span id="bbTIRValue" class="font-extrabold text-gray-700 text-3xl"></span>
                         </div>
                     </div>
-                    <!-- BB's IRR Display -->
-                    <div class="bg-white p-4 rounded-lg shadow-md mb-4 text-center">
-                        <p class="block text-gray-700 text-lg font-bold mb-2">IRR</p>
-                        <span id="bbTIRValue" class="font-extrabold text-gray-700 text-3xl"></span>
-                    </div>
-                    <div class="text-center">
+                    <div class="text-center mt-4">
                         <button id="downloadBBCashFlowCsvBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
                             Descargar Flujo de Pagos (CSV)
                         </button>
                     </div>
                 </div>
-            </section>
+                </section>
 
+            </div>
         </div>
     </main>
 
@@ -413,21 +470,22 @@
         let totalLoanAmountSpan, originationCostsSpan, originationCostsDisplay, tnaDisplaySpan;
         let amortizationTableBody;
         let toggleDashboardBottomButton, dashboardContentBottom;
-        let dashboardTNASlider, dashboardTNAInput, dashboardTNAValueSpan;
-        let dashboardLTVSlider, dashboardLTVInput, dashboardLTVValueSpan;
-        let dashboardDTISlider, dashboardDTIInput, dashboardDTIValueSpan;
-        let dashboardEscrituraPercentage, dashboardEscrituraPercentageInput, dashboardEscrituraPercentageValueSpan; // New
-        let dashboardEscrituraMinUSD, dashboardEscrituraMinUSDInput, dashboardEscrituraMinUSDValueSpan; // New
-        let dashboardOriginationFeePercentage, dashboardOriginationFeePercentageInput, dashboardOriginationFeePercentageValueSpan; // New
-        let dashboardOriginationFeeMinUSD, dashboardOriginationFeeMinUSDInput, dashboardOriginationFeeMinUSDValueSpan; // New
-        let dashboardInsuranceLifeSlider, dashboardInsuranceLifeInput, dashboardInsuranceLifeValueSpan;
-        let dashboardMarkupLifePercentage, dashboardMarkupLifePercentageInput, dashboardMarkupLifePercentageValueSpan; // New
-        let dashboardInsuranceFireSlider, dashboardInsuranceFireInput, dashboardInsuranceFireValueSpan;
-        let dashboardMarkupFirePercentage, dashboardMarkupFirePercentageInput, dashboardMarkupFirePercentageValueSpan; // New
-        let dashboardServicingFeeSlider, dashboardServicingFeeInput, dashboardServicingFeeValueSpan;
+        let dashboardTNASlider, dashboardTNAInput, dashboardTNAValueDisplay; // Added ValueDisplay
+        let dashboardLTVSlider, dashboardLTVInput, dashboardLTVValueDisplay; // Added ValueDisplay
+        let dashboardDTISlider, dashboardDTIInput, dashboardDTIValueDisplay; // Added ValueDisplay
+        let dashboardEscrituraPercentage, dashboardEscrituraPercentageInput, dashboardEscrituraPercentageValueDisplay; // Added ValueDisplay
+        let dashboardEscrituraMinUSD, dashboardEscrituraMinUSDInput, dashboardEscrituraMinUSDValueDisplay; // Added ValueDisplay
+        let dashboardOriginationFeePercentage, dashboardOriginationFeePercentageInput, dashboardOriginationFeePercentageValueDisplay; // Added ValueDisplay
+        let dashboardOriginationFeeMinUSD, dashboardOriginationFeeMinUSDInput, dashboardOriginationFeeMinUSDValueDisplay; // Added ValueDisplay
+        let dashboardInsuranceLifeSlider, dashboardInsuranceLifeInput, dashboardInsuranceLifeValueDisplay; // Added ValueDisplay
+        let dashboardMarkupLifePercentage, dashboardMarkupLifePercentageInput, dashboardMarkupLifePercentageValueDisplay; // Added ValueDisplay
+        let dashboardInsuranceFireSlider, dashboardInsuranceFireInput, dashboardInsuranceFireValueDisplay; // Added ValueDisplay
+        let dashboardMarkupFirePercentage, dashboardMarkupFirePercentageInput, dashboardMarkupFirePercentageValueDisplay; // Added ValueDisplay
+        let dashboardServicingFeeSlider, dashboardServicingFeeInput, dashboardServicingFeeValueDisplay; // Added ValueDisplay
         let toggleAmortizationTableButton, amortizationTableSection, amortizationTableTitle, downloadAmortizationCsvBtn;
         let bbTIRValue; // Added for BB's TIR display
         let downloadBBCashFlowCsvBtn; // Added for BB's cash flow CSV download button
+        let cftWithOriginationDisplayPanel; // New span for CFTEA in panel
 
 
         // --- Helper Functions ---
@@ -541,18 +599,18 @@
             const loanTermMonths = loanTermYears * 12;
 
             // Use current values from dashboard sliders (using their respective IDs)
-            currentTNA = parseFloat(dashboardTNASlider.value);
-            currentLTV = parseFloat(dashboardLTVSlider.value);
-            currentDTI = parseFloat(dashboardDTISlider.value);
-            currentEscrituraPercentage = parseFloat(dashboardEscrituraPercentage.value);
-            currentEscrituraMinUSD = parseFloat(dashboardEscrituraMinUSD.value);
-            currentOriginationFeePercentage = parseFloat(dashboardOriginationFeePercentage.value);
-            currentOriginationFeeMinUSD = parseFloat(dashboardOriginationFeeMinUSD.value);
-            currentInsuranceLifePercentage = parseFloat(dashboardInsuranceLifeSlider.value);
-            currentMarkupLifePercentage = parseFloat(dashboardMarkupLifePercentage.value);
-            currentInsuranceFirePercentage = parseFloat(dashboardInsuranceFireSlider.value);
-            currentMarkupFirePercentage = parseFloat(dashboardMarkupFirePercentage.value);
-            currentServicingFeeUSD = parseFloat(dashboardServicingFeeSlider.value);
+            currentTNA = parseFloat(dashboardTNAInput.value);
+            currentLTV = parseFloat(dashboardLTVInput.value);
+            currentDTI = parseFloat(dashboardDTIInput.value);
+            currentEscrituraPercentage = parseFloat(dashboardEscrituraPercentageInput.value);
+            currentEscrituraMinUSD = parseFloat(dashboardEscrituraMinUSDInput.value);
+            currentOriginationFeePercentage = parseFloat(dashboardOriginationFeePercentageInput.value);
+            currentOriginationFeeMinUSD = parseFloat(dashboardOriginationFeeMinUSDInput.value);
+            currentInsuranceLifePercentage = parseFloat(dashboardInsuranceLifeInput.value);
+            currentMarkupLifePercentage = parseFloat(dashboardMarkupLifePercentageInput.value);
+            currentInsuranceFirePercentage = parseFloat(dashboardInsuranceFireInput.value);
+            currentMarkupFirePercentage = parseFloat(dashboardMarkupFirePercentageInput.value);
+            currentServicingFeeUSD = parseFloat(dashboardServicingFeeInput.value);
 
             const annualTNA = currentTNA;
             const monthlyTNA = annualTNA / 12;
@@ -753,33 +811,22 @@
             cftWithOriginationDisplay.textContent = formatPercentage(calculatedCFT);
             tnaDisplaySpan.textContent = formatPercentage(annualTNA);
 
-            // Update dashboard display values (for the moved section at the bottom)
-            dashboardTNAValueSpan.textContent = formatPercentage(currentTNA);
-            dashboardTNAInput.value = currentTNA; // Ensure input value is also updated
-            dashboardLTVValueSpan.textContent = formatPercentage(currentLTV);
+            // Update dashboard input values
+            dashboardTNAInput.value = currentTNA;
             dashboardLTVInput.value = currentLTV;
-            dashboardDTIValueSpan.textContent = formatPercentage(currentDTI);
             dashboardDTIInput.value = currentDTI;
-            dashboardEscrituraPercentageValueSpan.textContent = formatPercentage(currentEscrituraPercentage);
             dashboardEscrituraPercentageInput.value = currentEscrituraPercentage;
-            dashboardEscrituraMinUSDValueSpan.textContent = formatCurrency(currentEscrituraMinUSD);
             dashboardEscrituraMinUSDInput.value = currentEscrituraMinUSD;
-            dashboardOriginationFeePercentageValueSpan.textContent = formatPercentage(currentOriginationFeePercentage);
             dashboardOriginationFeePercentageInput.value = currentOriginationFeePercentage;
-            dashboardOriginationFeeMinUSDValueSpan.textContent = formatCurrency(currentOriginationFeeMinUSD);
             dashboardOriginationFeeMinUSDInput.value = currentOriginationFeeMinUSD;
-            dashboardInsuranceLifeValueSpan.textContent = formatPercentage(currentInsuranceLifePercentage);
             dashboardInsuranceLifeInput.value = currentInsuranceLifePercentage;
-            dashboardMarkupLifePercentageValueSpan.textContent = formatPercentage(currentMarkupLifePercentage);
             dashboardMarkupLifePercentageInput.value = currentMarkupLifePercentage;
-            dashboardInsuranceFireValueSpan.textContent = formatPercentage(currentInsuranceFirePercentage);
             dashboardInsuranceFireInput.value = currentInsuranceFirePercentage;
-            dashboardMarkupFirePercentageValueSpan.textContent = formatPercentage(currentMarkupFirePercentage);
             dashboardMarkupFirePercentageInput.value = currentMarkupFirePercentage;
-            dashboardServicingFeeValueSpan.textContent = formatCurrency(currentServicingFeeUSD);
             dashboardServicingFeeInput.value = currentServicingFeeUSD;
 
             bbTIRValue.textContent = formatPercentage(annualIRR_BB); // Update BB's TIR
+            cftWithOriginationDisplayPanel.textContent = formatPercentage(calculatedCFT); // Update CFTEA in panel
         }
 
         /**
@@ -816,7 +863,6 @@
                 link.setAttribute('download', 'cuadro_amortizacion.csv');
                 link.style.visibility = 'hidden';
                 document.body.appendChild(link);
-                link.click();
                 document.body.removeChild(link);
             } else {
                 console.log('Tu navegador no soporta la descarga directa. Copia el siguiente texto y pégalo en un archivo .csv:\n\n' + csvContent);
@@ -856,7 +902,6 @@
                 link.setAttribute('download', 'flujo_pagos_bb.csv');
                 link.style.visibility = 'hidden';
                 document.body.appendChild(link);
-                link.click();
                 document.body.removeChild(link);
             } else {
                 console.log('Tu navegador no soporta la descarga directa. Copia el siguiente texto y pégalo en un archivo .csv:\n\n' + csvContent);
@@ -876,7 +921,7 @@
             minMonthlyIncomeSpan = document.getElementById('minMonthlyIncome');
             minPropertyValueSpan = document.getElementById('minPropertyValue');
             cfteaWithoutOriginationSpan = document.getElementById('cfteaWithoutOrigination');
-            cftWithOriginationDisplay = document.getElementById('cftWithOriginationDisplay');
+            cftWithOriginationDisplay = document.getElementById('cftWithOriginationDisplay'); // Client's CFTEA with origination costs
 
             totalLoanAmountSpan = document.getElementById('totalLoanAmount');
             originationCostsSpan = document.getElementById('originationCosts');
@@ -888,53 +933,54 @@
             toggleDashboardBottomButton = document.getElementById('toggleDashboardBottom');
             dashboardContentBottom = document.getElementById('dashboardContentBottom');
 
+            // Dashboard inputs and sliders
             dashboardTNASlider = document.getElementById('dashboardTNA');
             dashboardTNAInput = document.getElementById('dashboardTNAInput');
-            dashboardTNAValueSpan = document.getElementById('dashboardTNAValue');
+            dashboardTNAValueDisplay = document.getElementById('dashboardTNAValueDisplay'); // Added
 
             dashboardLTVSlider = document.getElementById('dashboardLTV');
             dashboardLTVInput = document.getElementById('dashboardLTVInput');
-            dashboardLTVValueSpan = document.getElementById('dashboardLTVValue');
+            dashboardLTVValueDisplay = document.getElementById('dashboardLTVValueDisplay'); // Added
 
             dashboardDTISlider = document.getElementById('dashboardDTI');
             dashboardDTIInput = document.getElementById('dashboardDTIInput');
-            dashboardDTIValueSpan = document.getElementById('dashboardDTIValue');
+            dashboardDTIValueDisplay = document.getElementById('dashboardDTIValueDisplay'); // Added
 
             dashboardEscrituraPercentage = document.getElementById('dashboardEscrituraPercentage');
             dashboardEscrituraPercentageInput = document.getElementById('dashboardEscrituraPercentageInput');
-            dashboardEscrituraPercentageValueSpan = document.getElementById('dashboardEscrituraPercentageValue');
+            dashboardEscrituraPercentageValueDisplay = document.getElementById('dashboardEscrituraPercentageValueDisplay'); // Added
 
             dashboardEscrituraMinUSD = document.getElementById('dashboardEscrituraMinUSD');
             dashboardEscrituraMinUSDInput = document.getElementById('dashboardEscrituraMinUSDInput');
-            dashboardEscrituraMinUSDValueSpan = document.getElementById('dashboardEscrituraMinUSDValue');
+            dashboardEscrituraMinUSDValueDisplay = document.getElementById('dashboardEscrituraMinUSDValueDisplay'); // Added
 
             dashboardOriginationFeePercentage = document.getElementById('dashboardOriginationFeePercentage');
             dashboardOriginationFeePercentageInput = document.getElementById('dashboardOriginationFeePercentageInput');
-            dashboardOriginationFeePercentageValueSpan = document.getElementById('dashboardOriginationFeePercentageValue');
+            dashboardOriginationFeePercentageValueDisplay = document.getElementById('dashboardOriginationFeePercentageValueDisplay'); // Added
 
             dashboardOriginationFeeMinUSD = document.getElementById('dashboardOriginationFeeMinUSD');
             dashboardOriginationFeeMinUSDInput = document.getElementById('dashboardOriginationFeeMinUSDInput');
-            dashboardOriginationFeeMinUSDValueSpan = document.getElementById('dashboardOriginationFeeMinUSDValue');
+            dashboardOriginationFeeMinUSDValueDisplay = document.getElementById('dashboardOriginationFeeMinUSDValueDisplay'); // Added
 
             dashboardInsuranceLifeSlider = document.getElementById('dashboardInsuranceLife');
             dashboardInsuranceLifeInput = document.getElementById('dashboardInsuranceLifeInput');
-            dashboardInsuranceLifeValueSpan = document.getElementById('dashboardInsuranceLifeValue');
+            dashboardInsuranceLifeValueDisplay = document.getElementById('dashboardInsuranceLifeValueDisplay'); // Added
 
             dashboardMarkupLifePercentage = document.getElementById('dashboardMarkupLifePercentage');
             dashboardMarkupLifePercentageInput = document.getElementById('dashboardMarkupLifePercentageInput');
-            dashboardMarkupLifePercentageValueSpan = document.getElementById('dashboardMarkupLifePercentageValue');
+            dashboardMarkupLifePercentageValueDisplay = document.getElementById('dashboardMarkupLifePercentageValueDisplay'); // Added
 
             dashboardInsuranceFireSlider = document.getElementById('dashboardInsuranceFire');
             dashboardInsuranceFireInput = document.getElementById('dashboardInsuranceFireInput');
-            dashboardInsuranceFireValueSpan = document.getElementById('dashboardInsuranceFireValue');
+            dashboardInsuranceFireValueDisplay = document.getElementById('dashboardInsuranceFireValueDisplay'); // Added
 
             dashboardMarkupFirePercentage = document.getElementById('dashboardMarkupFirePercentage');
             dashboardMarkupFirePercentageInput = document.getElementById('dashboardMarkupFirePercentageInput');
-            dashboardMarkupFirePercentageValueSpan = document.getElementById('dashboardMarkupFirePercentageValue');
+            dashboardMarkupFirePercentageValueDisplay = document.getElementById('dashboardMarkupFirePercentageValueDisplay'); // Added
 
             dashboardServicingFeeSlider = document.getElementById('dashboardServicingFee');
             dashboardServicingFeeInput = document.getElementById('dashboardServicingFeeInput');
-            dashboardServicingFeeValueSpan = document.getElementById('dashboardServicingFeeValue');
+            dashboardServicingFeeValueDisplay = document.getElementById('dashboardServicingFeeValueDisplay'); // Added
 
             toggleAmortizationTableButton = document.getElementById('toggleAmortizationTable');
             amortizationTableSection = document.getElementById('amortizationTableSection');
@@ -943,6 +989,7 @@
 
             bbTIRValue = document.getElementById('bbTIRValue');
             downloadBBCashFlowCsvBtn = document.getElementById('downloadBBCashFlowCsvBtn');
+            cftWithOriginationDisplayPanel = document.getElementById('cftWithOriginationDisplayPanel'); // Get reference to CFTEA in panel
 
             // Set default loan amount to 100,000 USD and loan term to 10 years
             loanAmountSlider.value = 100000;
@@ -952,117 +999,67 @@
             loanAmountSlider.addEventListener('input', calculateLoan);
             loanTermSlider.addEventListener('input', calculateLoan);
 
+            // Event listeners for dashboard sliders and inputs
+            const dashboardControls = [
+                { slider: dashboardTNASlider, input: dashboardTNAInput, display: dashboardTNAValueDisplay, type: 'percentage' },
+                { slider: dashboardLTVSlider, input: dashboardLTVInput, display: dashboardLTVValueDisplay, type: 'percentage' },
+                { slider: dashboardDTISlider, input: dashboardDTIInput, display: dashboardDTIValueDisplay, type: 'percentage' },
+                { slider: dashboardEscrituraPercentage, input: dashboardEscrituraPercentageInput, display: dashboardEscrituraPercentageValueDisplay, type: 'percentage' },
+                { slider: dashboardEscrituraMinUSD, input: dashboardEscrituraMinUSDInput, display: dashboardEscrituraMinUSDValueDisplay, type: 'currency' },
+                { slider: dashboardOriginationFeePercentage, input: dashboardOriginationFeePercentageInput, display: dashboardOriginationFeePercentageValueDisplay, type: 'percentage' },
+                { slider: dashboardOriginationFeeMinUSD, input: dashboardOriginationFeeMinUSDInput, display: dashboardOriginationFeeMinUSDValueDisplay, type: 'currency' },
+                { slider: dashboardInsuranceLifeSlider, input: dashboardInsuranceLifeInput, display: dashboardInsuranceLifeValueDisplay, type: 'percentage' },
+                { slider: dashboardMarkupLifePercentage, input: dashboardMarkupLifePercentageInput, display: dashboardMarkupLifePercentageValueDisplay, type: 'percentage' },
+                { slider: dashboardInsuranceFireSlider, input: dashboardInsuranceFireInput, display: dashboardInsuranceFireValueDisplay, type: 'percentage' },
+                { slider: dashboardMarkupFirePercentage, input: dashboardMarkupFirePercentageInput, display: dashboardMarkupFirePercentageValueDisplay, type: 'percentage' },
+                { slider: dashboardServicingFeeSlider, input: dashboardServicingFeeInput, display: dashboardServicingFeeValueDisplay, type: 'currency' }
+            ];
+
+            dashboardControls.forEach(control => {
+                const updateDisplay = () => {
+                    const value = parseFloat(control.input.value);
+                    if (control.type === 'percentage') {
+                        control.display.textContent = formatPercentage(value);
+                    } else if (control.type === 'currency') {
+                        control.display.textContent = formatCurrency(value);
+                    }
+                };
+
+                control.slider.addEventListener('input', (event) => {
+                    control.input.value = event.target.value;
+                    updateDisplay();
+                    calculateLoan();
+                });
+
+                control.input.addEventListener('input', (event) => {
+                    // Ensure the input value is within the slider's min/max range
+                    let value = parseFloat(event.target.value);
+                    if (isNaN(value)) value = parseFloat(control.slider.min); // Default to min if not a number
+                    if (value < parseFloat(control.slider.min)) value = parseFloat(control.slider.min);
+                    if (value > parseFloat(control.slider.max)) value = parseFloat(control.slider.max);
+                    
+                    control.slider.value = value;
+                    event.target.value = value; // Update input field with clamped value
+                    
+                    updateDisplay();
+                    calculateLoan();
+                });
+
+                // Initial formatting and display update for inputs
+                if (control.type === 'percentage') {
+                    control.input.value = parseFloat(control.input.value).toFixed(4);
+                } else if (control.type === 'currency') {
+                    control.input.value = parseFloat(control.input.value).toFixed(0);
+                } else if (control.input.id === 'dashboardLTVInput' || control.input.id === 'dashboardDTIInput' || control.input.id === 'dashboardTNAInput') {
+                    control.input.value = parseFloat(control.input.value).toFixed(3);
+                }
+                updateDisplay(); // Call initially to set the display span text
+            });
+
+
             toggleDashboardBottomButton.addEventListener('click', () => {
                 dashboardContentBottom.classList.toggle('collapsed');
                 toggleDashboardBottomButton.querySelector('svg').classList.toggle('rotated');
-            });
-
-            dashboardTNASlider.addEventListener('input', (event) => {
-                dashboardTNAInput.value = event.target.value;
-                calculateLoan();
-            });
-            dashboardTNAInput.addEventListener('input', (event) => {
-                dashboardTNASlider.value = event.target.value;
-                calculateLoan();
-            });
-
-            dashboardLTVSlider.addEventListener('input', (event) => {
-                dashboardLTVInput.value = event.target.value;
-                calculateLoan();
-            });
-            dashboardLTVInput.addEventListener('input', (event) => {
-                dashboardLTVSlider.value = event.target.value;
-                calculateLoan();
-            });
-
-            dashboardDTISlider.addEventListener('input', (event) => {
-                dashboardDTIInput.value = event.target.value;
-                calculateLoan();
-            });
-            dashboardDTIInput.addEventListener('input', (event) => {
-                dashboardDTISlider.value = event.target.value;
-                calculateLoan();
-            });
-
-            dashboardEscrituraPercentage.addEventListener('input', (event) => {
-                dashboardEscrituraPercentageInput.value = event.target.value;
-                calculateLoan();
-            });
-            dashboardEscrituraPercentageInput.addEventListener('input', (event) => {
-                dashboardEscrituraPercentage.value = event.target.value;
-                calculateLoan();
-            });
-
-            dashboardEscrituraMinUSD.addEventListener('input', (event) => {
-                dashboardEscrituraMinUSDInput.value = event.target.value;
-                calculateLoan();
-            });
-            dashboardEscrituraMinUSDInput.addEventListener('input', (event) => {
-                dashboardEscrituraMinUSD.value = event.target.value;
-                calculateLoan();
-            });
-
-            dashboardOriginationFeePercentage.addEventListener('input', (event) => {
-                dashboardOriginationFeePercentageInput.value = event.target.value;
-                calculateLoan();
-            });
-            dashboardOriginationFeePercentageInput.addEventListener('input', (event) => {
-                dashboardOriginationFeePercentage.value = event.target.value;
-                calculateLoan();
-            });
-
-            dashboardOriginationFeeMinUSD.addEventListener('input', (event) => {
-                dashboardOriginationFeeMinUSDInput.value = event.target.value;
-                calculateLoan();
-            });
-            dashboardOriginationFeeMinUSDInput.addEventListener('input', (event) => {
-                dashboardOriginationFeeMinUSD.value = event.target.value;
-                calculateLoan();
-            });
-
-            dashboardInsuranceLifeSlider.addEventListener('input', (event) => {
-                dashboardInsuranceLifeInput.value = event.target.value;
-                calculateLoan();
-            });
-            dashboardInsuranceLifeInput.addEventListener('input', (event) => {
-                dashboardInsuranceLifeSlider.value = event.target.value;
-                calculateLoan();
-            });
-
-            dashboardMarkupLifePercentage.addEventListener('input', (event) => {
-                dashboardMarkupLifePercentageInput.value = event.target.value;
-                calculateLoan();
-            });
-            dashboardMarkupLifePercentageInput.addEventListener('input', (event) => {
-                dashboardMarkupLifePercentage.value = event.target.value;
-                calculateLoan();
-            });
-
-            dashboardInsuranceFireSlider.addEventListener('input', (event) => {
-                dashboardInsuranceFireInput.value = event.target.value;
-                calculateLoan();
-            });
-            dashboardInsuranceFireInput.addEventListener('input', (event) => {
-                dashboardInsuranceFireSlider.value = event.target.value;
-                calculateLoan();
-            });
-
-            dashboardMarkupFirePercentage.addEventListener('input', (event) => {
-                dashboardMarkupFirePercentageInput.value = event.target.value;
-                calculateLoan();
-            });
-            dashboardMarkupFirePercentageInput.addEventListener('input', (event) => {
-                dashboardMarkupFirePercentage.value = event.target.value;
-                calculateLoan();
-            });
-
-            dashboardServicingFeeSlider.addEventListener('input', (event) => {
-                dashboardServicingFeeInput.value = event.target.value;
-                calculateLoan();
-            });
-            dashboardServicingFeeInput.addEventListener('input', (event) => {
-                dashboardServicingFeeSlider.value = event.target.value;
-                calculateLoan();
             });
 
             toggleAmortizationTableButton.addEventListener('click', () => {
