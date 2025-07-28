@@ -80,9 +80,8 @@
         }
         /* Collapsible section styling */
         .collapsible-content {
-            max-height: 1000px; /* Arbitrarily large value for expanded state */
-            overflow-y: auto; /* Changed from hidden to auto for vertical scrolling */
             transition: max-height 0.5s ease-out;
+            /* Removed max-height: 1000px and overflow-y: auto for natural scroll when expanded */
         }
         .collapsible-content.collapsed {
             max-height: 0;
@@ -192,39 +191,36 @@
                     <!-- Unified Output Section -->
                     <section class="mb-8 p-6 bg-blue-100 rounded-lg shadow-inner">
                         <h2 class="text-2xl font-semibold text-gray-900 mb-4">Resultados de tu Simulación</h2>
-                        <div class="grid grid-cols-1 gap-4">
-                            <!-- Monto Total del Préstamo & Cuota Mensual Estimada -->
-                            <div class="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                                <div class="mb-2 sm:mb-0">
-                                    <p class="text-gray-700 text-sm">Monto Total del Préstamo</p>
-                                    <p id="totalLoanAmount" class="text-2xl font-bold text-gray-600 mt-1"></p>
-                                </div>
-                                <div class="sm:text-right">
-                                    <p class="text-gray-700 text-sm">Cuota Mensual Estimada</p>
-                                    <p id="monthlyPayment" class="text-2xl font-bold text-gray-600 mt-1"></p>
-                                </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Monto Total del Préstamo -->
+                            <div class="bg-white p-4 rounded-lg shadow-md">
+                                <p class="text-gray-700 text-sm">Monto Total del Préstamo</p>
+                                <p id="totalLoanAmount" class="text-2xl font-bold text-gray-600 mt-1"></p>
                             </div>
-                            <!-- Ingresos Mensuales Requeridos & Valor Mínimo de la Propiedad -->
-                            <div class="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                                <div class="mb-2 sm:mb-0">
-                                    <p class="text-gray-700 text-sm">Ingresos Mensuales Requeridos</p>
-                                    <p id="minMonthlyIncome" class="text-2xl font-bold text-gray-600 mt-1"></p>
-                                </div>
-                                <div class="sm:text-right">
-                                    <p class="text-gray-700 text-sm">Valor Mínimo de la Propiedad</p>
-                                    <p id="minPropertyValue" class="text-2xl font-bold text-gray-600 mt-1"></p>
-                                </div>
+                            <!-- Cuota Mensual Estimada -->
+                            <div class="bg-white p-4 rounded-lg shadow-md">
+                                <p class="text-gray-700 text-sm">Cuota Mensual Estimada</p>
+                                <p id="monthlyPayment" class="text-2xl font-bold text-gray-600 mt-1"></p>
                             </div>
-                            <!-- TNA & CFTEA -->
-                            <div class="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                                <div class="mb-2 sm:mb-0">
-                                    <p class="text-gray-700 text-sm">TNA (Tasa Nominal Anual)</p>
-                                    <p id="tnaDisplay" class="text-2xl font-bold text-gray-600 mt-1"></p>
-                                </div>
-                                <div class="sm:text-right">
-                                    <p class="text-gray-700 text-sm">CFTEA</p>
-                                    <p id="cfteaWithoutOrigination" class="text-2xl font-bold text-gray-600 mt-1"></p>
-                                </div>
+                            <!-- Ingresos Mensuales Requeridos -->
+                            <div class="bg-white p-4 rounded-lg shadow-md">
+                                <p class="text-gray-700 text-sm">Ingresos Mensuales Requeridos</p>
+                                <p id="minMonthlyIncome" class="text-2xl font-bold text-gray-600 mt-1"></p>
+                            </div>
+                            <!-- Valor Mínimo de la Propiedad -->
+                            <div class="bg-white p-4 rounded-lg shadow-md">
+                                <p class="text-gray-700 text-sm">Valor Mínimo de la Propiedad</p>
+                                <p id="minPropertyValue" class="text-2xl font-bold text-gray-600 mt-1"></p>
+                            </div>
+                            <!-- TNA -->
+                            <div class="bg-white p-4 rounded-lg shadow-md">
+                                <p class="text-gray-700 text-sm">TNA (Tasa Nominal Anual)</p>
+                                <p id="tnaDisplay" class="text-2xl font-bold text-gray-600 mt-1"></p>
+                            </div>
+                            <!-- CFTEA -->
+                            <div class="bg-white p-4 rounded-lg shadow-md">
+                                <p class="text-gray-700 text-sm">CFTEA</p>
+                                <p id="cfteaWithoutOrigination" class="text-2xl font-bold text-gray-600 mt-1"></p>
                             </div>
                         </div>
                         <p id="originationCostsDisplay" class="text-gray-700 text-sm mt-4 text-center">
@@ -244,15 +240,15 @@
                             <table class="min-w-full divide-y divide-blue-200 table-fixed">
                                 <thead class="bg-blue-200">
                                     <tr>
-                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider rounded-tl-lg w-1/9">Fecha de Pago</th>
-                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Nro. Cuota</th>
-                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Saldo Deudor</th>
-                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Pago Capital</th>
-                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Pago Intereses</th>
-                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Seguro Vida</th>
-                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Seguro Incendio y Admin.</th>
-                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">IVA</th>
-                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/9">Pago Total</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Fecha de Pago</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Nro. Cuota</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Saldo Deudor</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Pago Capital</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Pago Intereses</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Seguro Vida</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Seguro Incendio y Admin.</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">IVA</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Pago Total</th>
                                     </tr>
                                 </thead>
                                 <tbody id="amortizationTableBody" class="bg-white divide-y divide-blue-200">
@@ -260,7 +256,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="mt-6 text-center">
+                        <div class="text-center mt-4">
                             <button id="downloadAmortizationCsvBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
                                 Descargar Cuadro de Amortización (CSV)
                             </button>
@@ -428,8 +424,8 @@
                     </div>
 
                     <!-- BB Cash Flow Table Section - Collapsible -->
-                    <section id="bbCashFlowTableSection" class="mb-8 p-6 bg-blue-100 rounded-lg shadow-inner collapsible-content collapsed mt-4">
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-4" id="bbCashFlowTableTitle" style="display: none;">Detalle del Flujo de Pagos (BB)</h3>
+                    <section id="bbCashFlowTableSection" class="mb-8 p-6 bg-blue-100 rounded-lg shadow-inner collapsible-content"> <!-- Removed 'collapsed' class here -->
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-4" id="bbCashFlowTableTitle">Detalle del Flujo de Pagos (BB)</h3>
                         <div class="table-container rounded-lg shadow-md">
                             <table class="min-w-full divide-y divide-blue-200 table-fixed">
                                 <thead class="bg-blue-200">
@@ -704,6 +700,11 @@
 
             tempAmortizationDataForCFTEA = []; // Reinitialize here, outside the loop
 
+            // Declare ivaOnIntereses and ivaOnServicingFee inside the function scope
+            let ivaOnIntereses;
+            let ivaOnServicingFee;
+            let totalIVA;
+
             for (let i = 1; i <= loanTermMonths; i++) {
                 const interestPayment = currentBalance * monthlyTNA;
                 const capitalPayment = monthlyPaymentPrincipalInterest - interestPayment;
@@ -722,9 +723,10 @@
 
                 const servicingFee = currentServicingFeeUSD;
 
-                const ivaOnInterests = interestPayment * IVA_RATE;
-                const ivaOnServicingFee = servicingFee * IVA_RATE;
-                const totalIVA = ivaOnInterests + ivaOnServicingFee;
+                // Assign values to the already declared variables
+                ivaOnIntereses = interestPayment * IVA_RATE;
+                ivaOnServicingFee = servicingFee * IVA_RATE;
+                totalIVA = ivaOnIntereses + ivaOnServicingFee;
 
                 const totalMonthlyPayment = actualMonthlyPaymentPrincipalInterest + totalLifeInsurance + totalFireInsurance + servicingFee + totalIVA;
 
@@ -755,7 +757,7 @@
                 tempAmortizationDataForCFTEA.push({
                     cfteaCapitalPayment: actualCapitalPayment,
                     cfteaInterestPayment: interestPayment,
-                    cfteaIvaOnInterests: ivaOnInterests,
+                    cfteaIvaOnInterests: ivaOnIntereses,
                     cfteaLifeInsurance: totalLifeInsurance, // Use total client paid for CFTEA
                     cfteaFireInsurance: totalFireInsurance, // Use total client paid for CFTEA
                     cfteaServicingFee: servicingFee
@@ -775,7 +777,7 @@
                     // Store individual components for CFTEA recalculation
                     cfteaCapitalPayment: actualCapitalPayment,
                     cfteaInterestPayment: interestPayment,
-                    cfteaIvaOnInterests: ivaOnInterests,
+                    cfteaIvaOnInterests: ivaOnIntereses,
                     cfteaLifeInsurance: totalLifeInsurance,
                     cfteaFireInsurance: totalFireInsurance,
                     cfteaServicingFee: servicingFee
