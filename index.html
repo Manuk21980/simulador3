@@ -422,11 +422,40 @@
                     </div>
 
                     <div class="text-center mt-4">
-                        <button id="downloadBBCashFlowCsvBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
-                            Descargar Flujo de Pagos (CSV)
+                        <button id="toggleBBCashFlowTableButton" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
+                            Ver Flujo de Pagos
                         </button>
                     </div>
-                </div>
+
+                    <!-- BB Cash Flow Table Section - Collapsible -->
+                    <section id="bbCashFlowTableSection" class="mb-8 p-6 bg-blue-100 rounded-lg shadow-inner collapsible-content collapsed mt-4">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-4" id="bbCashFlowTableTitle" style="display: none;">Detalle del Flujo de Pagos (BB)</h3>
+                        <div class="table-container rounded-lg shadow-md">
+                            <table class="min-w-full divide-y divide-blue-200 table-fixed">
+                                <thead class="bg-blue-200">
+                                    <tr>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Fecha de Pago</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Tipo de Flujo</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Pago Capital</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Pago Intereses</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Servicing Fee</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Markup Incendio</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Markup Vida</th>
+                                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Pago Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bbCashFlowTableBody" class="bg-white divide-y divide-blue-200">
+                                    <!-- Rows will be dynamically inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button id="downloadBBCashFlowCsvBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
+                                Descargar Flujo de Pagos (CSV)
+                            </button>
+                        </div>
+                    </section>
+
                 </section>
 
             </div>
@@ -489,6 +518,9 @@
         let bbTIRValue; // Added for BB's TIR display
         let downloadBBCashFlowCsvBtn; // Added for BB's cash flow CSV download button
         let cftWithOriginationDisplayPanel; // New span for CFTEA in panel
+        let bbCashFlowTableBody; // New: BB Cash Flow Table Body
+        let bbCashFlowTableSection; // New: BB Cash Flow Table Section
+        let toggleBBCashFlowTableButton; // New: Toggle button for BB Cash Flow Table
 
 
         // --- Helper Functions ---
@@ -649,8 +681,7 @@
             // Cash flows for BB's TIR calculation
             const cashFlowsForBB = [];
             // Initial outflow for BB: loan amount minus the specific origination fee BB charges/retains
-            // This fee is 1.5% with a minimum of USD 1500, as per the user's specific instruction for BB's IRR.
-            const bbSpecificOriginationFee = Math.max(loanAmount * 0.015, 1500);
+            const bbSpecificOriginationFee = Math.max(loanAmount * currentOriginationFeePercentage, currentOriginationFeeMinUSD); // Use Fee de Originación
             cashFlowsForBB.push(-(loanAmount - bbSpecificOriginationFee)); // BB gives out loan amount, but effectively keeps this fee
 
             globalAmortizationData = []; // Clear global data for fresh table
@@ -830,6 +861,9 @@
 
             bbTIRValue.textContent = formatPercentage(annualIRR_BB); // Update BB's TIR
             cftWithOriginationDisplayPanel.textContent = formatPercentage(calculatedCFT); // Update CFTEA in panel
+
+            // Populate BB Cash Flow Table
+            populateBBCashFlowDetailsTable();
         }
 
         /**
@@ -909,6 +943,103 @@
             } else {
                 console.log('Tu navegador no soporta la descarga directa. Copia el siguiente texto y pégalo en un archivo .csv:\n\n' + csvContent);
             }
+        }
+
+        /**
+         * Populates the BB Cash Flow table with data.
+         */
+        function populateBBCashFlowDetailsTable() {
+            bbCashFlowTableBody.innerHTML = ''; // Clear previous table rows
+            if (globalBBCashFlowData.length === 0) {
+                const row = bbCashFlowTableBody.insertRow();
+                const cell = row.insertCell();
+                cell.colSpan = 8;
+                cell.textContent = 'No hay datos de flujo de pagos disponibles.';
+                cell.classList.add('text-center', 'py-4', 'text-gray-500');
+                return;
+            }
+
+            // Calculate totals for the summary row
+            let totalCapital = 0;
+            let totalIntereses = 0;
+            let totalServicingFee = 0;
+            let totalMarkupIncendio = 0;
+            let totalMarkupVida = 0;
+
+            globalBBCashFlowData.forEach(flow => {
+                const row = bbCashFlowTableBody.insertRow();
+                row.className = 'hover:bg-blue-50';
+
+                const cellDate = row.insertCell();
+                cellDate.textContent = flow.date || 'N/A';
+                cellDate.classList.add('px-4', 'py-2', 'text-center', 'text-sm', 'text-gray-700');
+
+                const cellType = row.insertCell();
+                cellType.textContent = flow.type;
+                cellType.classList.add('px-4', 'py-2', 'text-center', 'text-sm', 'text-gray-700');
+
+                const cellCapital = row.insertCell();
+                cellCapital.textContent = flow.capital !== '' ? formatCurrency(flow.capital) : '';
+                cellCapital.classList.add('px-4', 'py-2', 'text-center', 'text-sm', 'text-gray-700');
+                if (flow.capital !== '') totalCapital += flow.capital;
+
+                const cellIntereses = row.insertCell();
+                cellIntereses.textContent = flow.intereses !== '' ? formatCurrency(flow.intereses) : '';
+                cellIntereses.classList.add('px-4', 'py-2', 'text-center', 'text-sm', 'text-gray-700');
+                if (flow.intereses !== '') totalIntereses += flow.intereses;
+
+                const cellServicingFee = row.insertCell();
+                cellServicingFee.textContent = flow.servicingFee !== '' ? formatCurrency(flow.servicingFee) : '';
+                cellServicingFee.classList.add('px-4', 'py-2', 'text-center', 'text-sm', 'text-gray-700');
+                if (flow.servicingFee !== '') totalServicingFee += flow.servicingFee;
+
+                const cellMarkupIncendio = row.insertCell();
+                cellMarkupIncendio.textContent = flow.markupIncendio !== '' ? formatCurrency(flow.markupIncendio) : '';
+                cellMarkupIncendio.classList.add('px-4', 'py-2', 'text-center', 'text-sm', 'text-gray-700');
+                if (flow.markupIncendio !== '') totalMarkupIncendio += flow.markupIncendio;
+
+                const cellMarkupVida = row.insertCell();
+                cellMarkupVida.textContent = flow.markupVida !== '' ? formatCurrency(flow.markupVida) : '';
+                cellMarkupVida.classList.add('px-4', 'py-2', 'text-center', 'text-sm', 'text-gray-700');
+                if (flow.markupVida !== '') totalMarkupVida += flow.markupVida;
+
+                const cellTotal = row.insertCell();
+                cellTotal.textContent = formatCurrency(flow.total);
+                cellTotal.classList.add('px-4', 'py-2', 'text-center', 'text-sm', 'font-semibold', 'text-gray-800');
+            });
+
+            // Add totals row
+            const totalRow = bbCashFlowTableBody.insertRow();
+            totalRow.classList.add('bg-blue-100', 'font-bold');
+
+            let cellEmpty1 = totalRow.insertCell();
+            cellEmpty1.colSpan = 2;
+            cellEmpty1.textContent = 'Totales';
+            cellEmpty1.classList.add('px-4', 'py-2', 'text-center', 'text-sm', 'text-gray-800');
+
+            let cellTotalCapital = totalRow.insertCell();
+            cellTotalCapital.textContent = formatCurrency(totalCapital);
+            cellTotalCapital.classList.add('px-4', 'py-2', 'text-center', 'text-sm', 'text-gray-800');
+
+            let cellTotalIntereses = totalRow.insertCell();
+            cellTotalIntereses.textContent = formatCurrency(totalIntereses);
+            cellTotalIntereses.classList.add('px-4', 'py-2', 'text-center', 'text-sm', 'text-gray-800');
+
+            let cellTotalServicingFee = totalRow.insertCell();
+            cellTotalServicingFee.textContent = formatCurrency(totalServicingFee);
+            cellTotalServicingFee.classList.add('px-4', 'py-2', 'text-center', 'text-sm', 'text-gray-800');
+
+            let cellTotalMarkupIncendio = totalRow.insertCell();
+            cellTotalMarkupIncendio.textContent = formatCurrency(totalMarkupIncendio);
+            cellTotalMarkupIncendio.classList.add('px-4', 'py-2', 'text-center', 'text-sm', 'text-gray-800');
+
+            let cellTotalMarkupVida = totalRow.insertCell();
+            cellTotalMarkupVida.textContent = formatCurrency(totalMarkupVida);
+            cellTotalMarkupVida.classList.add('px-4', 'py-2', 'text-center', 'text-sm', 'text-gray-800');
+
+            let cellEmpty2 = totalRow.insertCell();
+            cellEmpty2.textContent = ''; // Total column for totals row is not explicitly requested as sum of parts
+            cellEmpty2.classList.add('px-4', 'py-2', 'text-center', 'text-sm', 'text-gray-800');
         }
 
 
@@ -991,8 +1122,14 @@
             downloadAmortizationCsvBtn = document.getElementById('downloadAmortizationCsvBtn');
 
             bbTIRValue = document.getElementById('bbTIRValue');
-            downloadBBCashFlowCsvBtn = document.getElementById('downloadBBCashFlowCsvBtn');
             cftWithOriginationDisplayPanel = document.getElementById('cftWithOriginationDisplayPanel'); // Get reference to CFTEA in panel
+
+            // New elements for BB Cash Flow table
+            bbCashFlowTableBody = document.getElementById('bbCashFlowTableBody');
+            bbCashFlowTableSection = document.getElementById('bbCashFlowTableSection');
+            toggleBBCashFlowTableButton = document.getElementById('toggleBBCashFlowTableButton');
+            downloadBBCashFlowCsvBtn = document.getElementById('downloadBBCashFlowCsvBtn'); // Re-assign for the new button inside the section
+
 
             // Set default loan amount to 100,000 USD and loan term to 10 years
             loanAmountSlider.value = 100000;
@@ -1075,6 +1212,17 @@
                 }
             });
 
+            // New event listener for BB Cash Flow table toggle
+            toggleBBCashFlowTableButton.addEventListener('click', () => {
+                bbCashFlowTableSection.classList.toggle('collapsed');
+                if (bbCashFlowTableSection.classList.contains('collapsed')) {
+                    toggleBBCashFlowTableButton.textContent = 'Ver Flujo de Pagos';
+                } else {
+                    toggleBBCashFlowTableButton.textContent = 'Ocultar Flujo de Pagos';
+                }
+            });
+
+
             downloadAmortizationCsvBtn.addEventListener('click', downloadAmortizationCsv);
             downloadBBCashFlowCsvBtn.addEventListener('click', downloadBBCashFlowCsv);
 
@@ -1084,4 +1232,3 @@
     </script>
 </body>
 </html>
-
