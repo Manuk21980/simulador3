@@ -81,7 +81,7 @@
         /* Collapsible section styling */
         .collapsible-content {
             transition: max-height 0.5s ease-out;
-            /* Removed max-height: 1000px and overflow-y: auto for natural scroll when expanded */
+            /* Removed overflow-y: auto; for main page scroll */
         }
         .collapsible-content.collapsed {
             max-height: 0;
@@ -147,6 +147,13 @@
         }
 
         /* Removed sticky-panel-header styles as it's no longer needed */
+        .sticky-table-header {
+            position: sticky;
+            top: 0;
+            z-index: 1; /* Ensure it stays above scrolling tbody content */
+            background-color: #bfdbfe; /* Match thead background color */
+            /* Add padding if needed to match thead padding */
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -238,7 +245,7 @@
                         <h2 class="text-2xl font-semibold text-gray-900 mb-4" id="amortizationTableTitle" style="display: none;">Detalle del Cuadro de Amortización</h2>
                         <div class="table-container rounded-lg shadow-md">
                             <table class="min-w-full divide-y divide-blue-200 table-fixed">
-                                <thead class="bg-blue-200">
+                                <thead class="bg-blue-200 sticky-table-header"> <!-- Added sticky-table-header class -->
                                     <tr>
                                         <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Fecha de Pago</th>
                                         <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Nro. Cuota</th>
@@ -417,18 +424,12 @@
                         <span id="dashboardServicingFeeValueDisplay" class="panel-value-display"></span>
                     </div>
 
-                    <div class="text-center mt-4">
-                        <button id="toggleBBCashFlowTableButton" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
-                            Ver Flujo de Pagos
-                        </button>
-                    </div>
-
-                    <!-- BB Cash Flow Table Section - Collapsible -->
-                    <section id="bbCashFlowTableSection" class="mb-8 p-6 bg-blue-100 rounded-lg shadow-inner collapsible-content"> <!-- Removed 'collapsed' class here -->
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-4" id="bbCashFlowTableTitle">Detalle del Flujo de Pagos (BB)</h3>
+                    <!-- BB Cash Flow Table Section - Always visible -->
+                    <section id="bbCashFlowTableSection" class="mb-8 p-6 bg-blue-100 rounded-lg shadow-inner mt-4">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-4" id="bbCashFlowTableTitle">Detalle del Flujo de Pagos IRR</h3>
                         <div class="table-container rounded-lg shadow-md">
                             <table class="min-w-full divide-y divide-blue-200 table-fixed">
-                                <thead class="bg-blue-200">
+                                <thead class="bg-blue-200 sticky-table-header">
                                     <tr>
                                         <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Fecha de Pago</th>
                                         <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/8">Tipo de Flujo</th>
@@ -1129,7 +1130,7 @@
             // New elements for BB Cash Flow table
             bbCashFlowTableBody = document.getElementById('bbCashFlowTableBody');
             bbCashFlowTableSection = document.getElementById('bbCashFlowTableSection');
-            toggleBBCashFlowTableButton = document.getElementById('toggleBBCashFlowTableButton');
+            // Removed toggleBBCashFlowTableButton as it's no longer needed
             downloadBBCashFlowCsvBtn = document.getElementById('downloadBBCashFlowCsvBtn'); // Re-assign for the new button inside the section
 
 
@@ -1214,15 +1215,15 @@
                 }
             });
 
-            // New event listener for BB Cash Flow table toggle
-            toggleBBCashFlowTableButton.addEventListener('click', () => {
-                bbCashFlowTableSection.classList.toggle('collapsed');
-                if (bbCashFlowTableSection.classList.contains('collapsed')) {
-                    toggleBBCashFlowTableButton.textContent = 'Ver Flujo de Pagos';
-                } else {
-                    toggleBBCashFlowTableButton.textContent = 'Ocultar Flujo de Pagos';
-                }
-            });
+            // Removed event listener for BB Cash Flow table toggle as it's always visible now
+            // toggleBBCashFlowTableButton.addEventListener('click', () => {
+            //     bbCashFlowTableSection.classList.toggle('collapsed');
+            //     if (bbCashFlowTableSection.classList.contains('collapsed')) {
+            //         toggleBBCashFlowTableButton.textContent = 'Ver Flujo de Pagos';
+            //     } else {
+            //         toggleBBCashFlowTableButton.textContent = 'Ocultar Flujo de Pagos';
+            //     }
+            // });
 
 
             downloadAmortizationCsvBtn.addEventListener('click', downloadAmortizationCsv);
@@ -1234,3 +1235,4 @@
     </script>
 </body>
 </html>
+
